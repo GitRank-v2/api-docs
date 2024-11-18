@@ -588,6 +588,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_회원_프로필_조회_메인_화면_http_response">HTTP response</a></li>
 </ul>
 </li>
+<li><a href="#_회원_인증_완료_여부_조회">회원 인증 완료 여부 조회</a>
+<ul class="sectlevel3">
+<li><a href="#_회원_인증_완료_여부_조회_http_request">HTTP request</a></li>
+<li><a href="#_회원_인증_완료_여부_조회_http_response">HTTP response</a></li>
+</ul>
+</li>
+<li><a href="#_회원_탈퇴">회원 탈퇴</a>
+<ul class="sectlevel3">
+<li><a href="#_회원_탈퇴_http_request">HTTP request</a></li>
+<li><a href="#_회원_탈퇴_http_response">HTTP response</a></li>
+</ul>
+</li>
+<li><a href="#_회원_개인_상세_조회">회원 개인 상세 조회</a>
+<ul class="sectlevel3">
+<li><a href="#_회원_개인_상세_조회_http_request">HTTP request</a></li>
+<li><a href="#_회원_개인_상세_조회_http_response">HTTP response</a></li>
+</ul>
+</li>
+<li><a href="#_타회원_상세_조회">타회원 상세 조회</a>
+<ul class="sectlevel3">
+<li><a href="#_타회원_상세_조회_http_request">HTTP request</a></li>
+<li><a href="#_타회원_상세_조회_http_response">HTTP response</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_search">Search</a>
@@ -602,6 +626,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#_repository_검색_http_request">HTTP request</a></li>
 <li><a href="#_repository_검색_http_response">HTTP response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_organization">Organization</a>
+<ul class="sectlevel2">
+<li><a href="#_조직_생성">조직 생성</a>
+<ul class="sectlevel3">
+<li><a href="#_조직_생성_http_request">HTTP request</a></li>
+<li><a href="#_조직_생성_http_response">HTTP response</a></li>
+</ul>
+</li>
+<li><a href="#_조직_회원_추가_요청">조직 회원 추가 요청</a>
+<ul class="sectlevel3">
+<li><a href="#_조직_회원_추가_요청_http_request">HTTP request</a></li>
+<li><a href="#_조직_회원_추가_요청_http_response">HTTP response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_email">Email</a>
+<ul class="sectlevel2">
+<li><a href="#_이메일_재전송">이메일 재전송</a>
+<ul class="sectlevel3">
+<li><a href="#_이메일_재전송_http_request">HTTP request</a></li>
+<li><a href="#_이메일_재전송_http_response">HTTP response</a></li>
 </ul>
 </li>
 </ul>
@@ -633,10 +683,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 122
+Content-Length: 139
 
 {
-  "status" : "success",
+  "code" : 200,
+  "message" : "success",
   "data" : {
     "access_token" : "1234.1234.1234",
     "refresh_token" : "4321.4321.4321"
@@ -692,26 +743,27 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 487
+Content-Length: 503
 
 {
-  "status" : "success",
+  "code" : 200,
+  "message" : "success",
   "data" : [ {
     "contribute_type" : "ISSUE",
     "amount" : 100,
-    "created_at" : "2024-11-06T15:58:33.883086"
+    "created_at" : "2024-11-18T12:51:08.371558"
   }, {
     "contribute_type" : "COMMIT",
     "amount" : 300,
-    "created_at" : "2024-11-06T15:58:33.883099"
+    "created_at" : "2024-11-18T12:51:08.37157"
   }, {
     "contribute_type" : "CODE_REVIEW",
     "amount" : 200,
-    "created_at" : "2024-11-06T15:58:33.883102"
+    "created_at" : "2024-11-18T12:51:08.371573"
   }, {
     "contribute_type" : "PULL_REQUEST",
     "amount" : 150,
-    "created_at" : "2024-11-06T15:58:33.883105"
+    "created_at" : "2024-11-18T12:51:08.371574"
   } ]
 }</code></pre>
 </div>
@@ -737,17 +789,18 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 488
+Content-Length: 510
 
 {
-  "status" : "success",
+  "code" : 200,
+  "message" : "success",
   "data" : {
     "name" : "test-name",
     "github_id" : "test-githubId",
     "commits" : 100,
     "issues" : 200,
     "pull_requests" : 300,
-    "reviews" : 400,
+    "code_reviews" : 400,
     "tier" : "GOLD",
     "auth_step" : "EMAIL",
     "profile_image" : "test-profileImage",
@@ -757,6 +810,138 @@ Content-Length: 488
     "organization_rank" : 3,
     "is_last" : false,
     "member_github_ids" : [ "test-1", "test-2", "test-3" ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_회원_인증_완료_여부_조회"><a class="link" href="#_회원_인증_완료_여부_조회">회원 인증 완료 여부 조회</a></h3>
+<div class="sect3">
+<h4 id="_회원_인증_완료_여부_조회_http_request"><a class="link" href="#_회원_인증_완료_여부_조회_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /members/verify HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer apfawfawfa.awfsfawef2.r4svfv32
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_회원_인증_완료_여부_조회_http_response"><a class="link" href="#_회원_인증_완료_여부_조회_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 90
+
+{
+  "code" : 200,
+  "message" : "success",
+  "data" : {
+    "is_login_member" : true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_회원_탈퇴"><a class="link" href="#_회원_탈퇴">회원 탈퇴</a></h3>
+<div class="sect3">
+<h4 id="_회원_탈퇴_http_request"><a class="link" href="#_회원_탈퇴_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /members HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer apfawfawfa.awfsfawef2.r4svfv32
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_회원_탈퇴_http_response"><a class="link" href="#_회원_탈퇴_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_회원_개인_상세_조회"><a class="link" href="#_회원_개인_상세_조회">회원 개인 상세 조회</a></h3>
+<div class="sect3">
+<h4 id="_회원_개인_상세_조회_http_request"><a class="link" href="#_회원_개인_상세_조회_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /members/details/me HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer apfawfawfa.awfsfawef2.r4svfv32
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_회원_개인_상세_조회_http_response"><a class="link" href="#_회원_개인_상세_조회_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 307
+
+{
+  "code" : 200,
+  "message" : "success",
+  "data" : {
+    "commits" : 100,
+    "issues" : 200,
+    "pull_requests" : 300,
+    "code_reviews" : 400,
+    "profile_image" : "test-profileImage",
+    "git_repos" : [ "test-repo-1", "test-repo-2" ],
+    "organization" : "test-organization",
+    "rank" : 1
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_타회원_상세_조회"><a class="link" href="#_타회원_상세_조회">타회원 상세 조회</a></h3>
+<div class="sect3">
+<h4 id="_타회원_상세_조회_http_request"><a class="link" href="#_타회원_상세_조회_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /members/details?githubId=ohksj77 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer apfawfawfa.awfsfawef2.r4svfv32
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_타회원_상세_조회_http_response"><a class="link" href="#_타회원_상세_조회_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 307
+
+{
+  "code" : 200,
+  "message" : "success",
+  "data" : {
+    "commits" : 100,
+    "issues" : 200,
+    "pull_requests" : 300,
+    "code_reviews" : 400,
+    "profile_image" : "test-profileImage",
+    "git_repos" : [ "test-repo-1", "test-repo-2" ],
+    "organization" : "test-organization",
+    "rank" : 1
   }
 }</code></pre>
 </div>
@@ -787,18 +972,19 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 234
+Content-Length: 266
 
 {
-  "status" : "success",
+  "code" : 200,
+  "message" : "success",
   "data" : [ {
-    "name" : "dragon",
+    "github_id" : "dragon",
     "is_service_member" : true
   }, {
-    "name" : "dragonguard",
+    "github_id" : "dragonguard",
     "is_service_member" : true
   }, {
-    "name" : "dragonball",
+    "github_id" : "dragonball",
     "is_service_member" : false
   } ]
 }</code></pre>
@@ -825,27 +1011,137 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 488
+Content-Length: 505
 
 {
-  "status" : "success",
+  "code" : 200,
+  "message" : "success",
   "data" : [ {
     "full_name" : "dragon",
     "language" : "dragon",
     "description" : "dragon",
-    "created_at" : "2024-11-12T14:06:09.168184"
+    "created_at" : "2024-11-18T12:51:08.808155"
   }, {
     "full_name" : "dragonguard",
     "language" : "dragonguard",
     "description" : "dragonguard",
-    "created_at" : "2024-11-12T14:06:09.168214"
+    "created_at" : "2024-11-18T12:51:08.808191"
   }, {
     "full_name" : "dragonball",
     "language" : "dragonball",
     "description" : "dragonball",
-    "created_at" : "2024-11-12T14:06:09.168219"
+    "created_at" : "2024-11-18T12:51:08.808196"
   } ]
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_organization"><a class="link" href="#_organization">Organization</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_조직_생성"><a class="link" href="#_조직_생성">조직 생성</a></h3>
+<div class="sect3">
+<h4 id="_조직_생성_http_request"><a class="link" href="#_조직_생성_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /organizations HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer apfawfawfa.awfsfawef2.r4svfv32
+Content-Length: 102
+Host: localhost:8080
+
+{
+  "name" : "test-org",
+  "email_end_point" : "tukorea.ac.kr",
+  "organization_type" : "UNIVERSITY"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_조직_생성_http_response"><a class="link" href="#_조직_생성_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created
+Content-Type: application/json;charset=UTF-8
+Content-Length: 74
+
+{
+  "code" : 201,
+  "message" : "success",
+  "data" : {
+    "id" : 1
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_조직_회원_추가_요청"><a class="link" href="#_조직_회원_추가_요청">조직 회원 추가 요청</a></h3>
+<div class="sect3">
+<h4 id="_조직_회원_추가_요청_http_request"><a class="link" href="#_조직_회원_추가_요청_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /organizations/join HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer apfawfawfa.awfsfawef2.r4svfv32
+Content-Length: 64
+Host: localhost:8080
+
+{
+  "organization_id" : 1,
+  "email" : "ohksj77@tukorea.ac.kr"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_조직_회원_추가_요청_http_response"><a class="link" href="#_조직_회원_추가_요청_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 74
+
+{
+  "code" : 200,
+  "message" : "success",
+  "data" : {
+    "id" : 1
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_email"><a class="link" href="#_email">Email</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_이메일_재전송"><a class="link" href="#_이메일_재전송">이메일 재전송</a></h3>
+<div class="sect3">
+<h4 id="_이메일_재전송_http_request"><a class="link" href="#_이메일_재전송_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /email/resend/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer apfawfawfa.awfsfawef2.r4svfv32
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_이메일_재전송_http_response"><a class="link" href="#_이메일_재전송_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content</code></pre>
 </div>
 </div>
 </div>
@@ -855,7 +1151,7 @@ Content-Length: 488
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-12 14:07:48 +0900
+Last updated 2024-11-18 12:54:40 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
